@@ -12,9 +12,6 @@ export class AuthService {
   public redirectTo: string = '/';
   private endpoint: string = '';
 
-  public loginCounter: Number = 0;
-  public lastVisit: string = "";
-
   private hasLoginErrors = new BehaviorSubject<boolean>(false);
   public hasLoginErrors$ = this.hasLoginErrors.asObservable();
   private hasRegisterErrors = new BehaviorSubject<boolean>(false);
@@ -73,10 +70,10 @@ export class AuthService {
     return this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/refresh', null, options);
   }
 
-  register(email: string, password: string, name: string) {
+  register(email: string, password: string, username: string) {
     const payload = new HttpParams()
       .set('email', email)
-      .set('name', name)
+      .set('username', username)
       .set('password', password);
 
     const returnVal: Observable<{message: string}> = this.http.post<{message: string}>(environment.url + this.endpoint + '/register', payload);

@@ -1,1 +1,18 @@
-<p>Home component works!</p>
+<div *ngIf="authService.isAuthenticated()">
+  <p style="font-size: 2rem; margin-top: 10px">Nazwa bazy danych: <b>{{dbName?.current_database}}</b></p>
+  <br>
+  <form [formGroup]="tableForm" (ngSubmit)="submit()">
+    <label for="tables">Tabela: </label>
+    <select formControlName="table" id="tables">
+      <option *ngFor="let table of dbTables?.tables; let i = index" [value]="table?.table_name">
+        {{dbTables ? dbTables.tables[i].table_name : 'placeholder'}}
+      </option>
+    </select>
+    <button>Pokaż zawartość tabeli</button>
+  </form>
+
+  <label for="name">SQL QUERY: </label>
+  <input id="name" type="text" [formControl]="sqlQuery">
+  <button type="button" (click)="executeQuery()">Execute</button>
+</div>
+<app-login *ngIf="!authService.isAuthenticated()"></app-login>

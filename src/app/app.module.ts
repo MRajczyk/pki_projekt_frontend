@@ -13,9 +13,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {AuthService} from "./services/auth.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
+import {DbService} from "./services/db.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +33,9 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
     MatButtonModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [AuthService, AuthGuardService,
+  providers: [AuthService, AuthGuardService, DbService,
     {
       provide: JwtHelperService,
       useFactory: () => new JwtHelperService()
