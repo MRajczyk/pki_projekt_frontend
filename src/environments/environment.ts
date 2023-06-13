@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url: 'https://pki-lab7-back.onrender.com',
+  url: 'https://pki-projekt-backend.onrender.com',
   // url: 'http://localhost:8080',
   production: false
 };

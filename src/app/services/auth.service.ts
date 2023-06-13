@@ -10,7 +10,7 @@ import {collect} from 'collect.js';
 @Injectable()
 export class AuthService {
   public redirectTo: string = '/';
-  private endpoint: string = '/auth';
+  private endpoint: string = '';
 
   public loginCounter: Number = 0;
   public lastVisit: string = "";
@@ -31,8 +31,8 @@ export class AuthService {
 
   hasAdminPrivileges() {
     // @ts-ignore
-    const reqUserRoles = sessionStorage.getItem('roles') !== null ? JSON.parse(sessionStorage.getItem('roles')) : ''
-    return collect(reqUserRoles).contains('ADMIN');
+    const reqUserRoles = sessionStorage.getItem('role') !== null ? JSON.parse(sessionStorage.getItem('role')) : ''
+    return collect(reqUserRoles).contains('admin');
   }
 
   logIn(email: string, password: string) {
@@ -40,14 +40,12 @@ export class AuthService {
       .set('email', email)
       .set('password', password);
 
-    const returnVal: Observable<LoginResponseModel> = this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/signin', payload);
+    const returnVal: Observable<LoginResponseModel> = this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/login', payload);
     returnVal.subscribe({
       next: returnVal => {
         sessionStorage.setItem('token', returnVal.accessToken);
         sessionStorage.setItem('refresh-token', returnVal.refreshToken);
-        sessionStorage.setItem('roles', JSON.stringify(returnVal.roles));
-        this.loginCounter = returnVal.counter;
-        this.lastVisit = returnVal.lastVisit
+        sessionStorage.setItem('role', JSON.stringify(returnVal.role));
 
         if(!environment.production) {
           console.log('token: ', returnVal.accessToken);
@@ -98,10 +96,8 @@ export class AuthService {
   }
 
   logOut(): void {
-    this.loginCounter = 0;
-    this.lastVisit = "";
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('refresh-token');
-    sessionStorage.removeItem('roles');
+    sessionStorage.removeItem('role');
   }
 }

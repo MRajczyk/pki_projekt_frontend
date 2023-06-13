@@ -29,7 +29,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       catchError((error) => {
         if (
           error instanceof HttpErrorResponse &&
-          !req.url.includes('auth/signin') &&
+          !req.url.includes('auth/login') &&
           error.status === 401
         ) {
           return this.handle401Error(req, next);
@@ -50,7 +50,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         switchMap((returnVal) => {
           sessionStorage.setItem('token', returnVal.accessToken);
           sessionStorage.setItem('refresh-token', returnVal.refreshToken);
-          sessionStorage.setItem('roles', JSON.stringify(returnVal.roles));
+          sessionStorage.setItem('role', JSON.stringify(returnVal.role));
           this.isRefreshing = false;
           return next.handle(request);
         }),

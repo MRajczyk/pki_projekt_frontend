@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from "../../services/data.service";
-import {Data} from "../../models/data-model";
 
 @Component({
   selector: 'app-home',
@@ -9,17 +7,6 @@ import {Data} from "../../models/data-model";
 })
 
 export class HomeComponent {
-  constructor(private dataService: DataService) { }
+  constructor() { }
 
-  data: Data | undefined = undefined;
-  onGetPublicData() {
-    this.dataService.getPublicData()
-      .subscribe((msg) => {
-        this.data = msg;
-      })
-  }
-
-  ngOnInit(): void {
-    this.onGetPublicData();
-  }
 }
