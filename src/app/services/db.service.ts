@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {DbNameResponse} from "../models/dbName-model";
 import {environment} from "../../environments/environment";
 import {TableNamesResponse} from "../models/table-names-response";
+import {TableInfo} from "../models/tableInfo-reponse-model";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class DbService {
 
   getTables(): Observable<TableNamesResponse> {
     return this.http.get<TableNamesResponse>(environment.url + this.endpoint + '/tables', {
+      responseType: 'json'
+    });
+  }
+
+  getTableInfo(name: string): Observable<TableInfo> {
+    console.log(environment.url + this.endpoint + `/table/${name}`)
+    return this.http.get<TableInfo>(environment.url + this.endpoint + `/table/${name}`, {
       responseType: 'json'
     });
   }

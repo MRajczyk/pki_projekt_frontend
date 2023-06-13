@@ -4,6 +4,7 @@ import {DbService} from "../../services/db.service";
 import {DbNameResponse} from "../../models/dbName-model";
 import {TableNamesResponse} from "../../models/table-names-response";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {TableInfo} from "../../models/tableInfo-reponse-model";
 
 @Component({
   selector: 'app-home',
@@ -20,8 +21,14 @@ export class HomeComponent implements OnInit{
     this.sqlQuery = new FormControl('');
   }
   tableForm: FormGroup;
+
+  tableInfo: TableInfo | undefined;
   submit() {
-    console.log(this.tableForm.value);
+    console.log(this.tableForm.value.table);
+
+    this.dbService.getTableInfo(this.tableForm.value.table).toPromise().then((value) => {
+      console.log(value);
+    })
   }
 
   sqlQuery: FormControl;
