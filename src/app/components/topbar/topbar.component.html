@@ -1,0 +1,32 @@
+<mat-toolbar class = mat-toolbar>
+  <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onMenuClick()">
+    Menu
+  </button>
+  <span class="example-spacer"></span>
+  <span><b>PKI LAB 7</b></span>
+  <span class="example-spacer"></span>
+  <div class="rightsideButtons">
+    <button class="buttonsRight" *ngIf="authService.isAuthenticated()">
+      <span (click)="onLoggedInfoClick()">Login info</span>
+    </button>
+    <button class="buttonsRight" *ngIf="!authService.isAuthenticated()">
+      <span (click)="onRegisterClick()">Register</span>
+    </button>
+    <button class="buttonsRight" *ngIf="!authService.isAuthenticated()">
+      <span (click)="onLoginClick()">Login</span>
+    </button>
+    <!-- TODO: show only when has admin role -->
+    <button class="buttonsRight" *ngIf="authService.isAuthenticated()">
+      <span (click)="onAdminClick()">Admin</span>
+    </button>
+    <!-- TODO: show only when has user or admin role -->
+    <button class="buttonsRight" *ngIf="authService.isAuthenticated()">
+      <span (click)="onLoggedInClick()">LoggedIn</span>
+    </button>
+    <button class="buttonsRight" *ngIf="authService.isAuthenticated()">
+      <span (click)="onLogoutClick()">Logout</span>
+    </button>
+    <span *ngIf="authService.loginCounter !== 0" style="margin-left: 10px; font-size: 15px">Counter: {{authService.loginCounter}}</span>
+    <span *ngIf="authService.lastVisit !== ''" style="margin-left: 10px; font-size: 15px">Last visit: {{authService.lastVisit}}</span>
+  </div>
+</mat-toolbar>

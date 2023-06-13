@@ -1,0 +1,7 @@
+<div class="loginInfoWrapper" *ngIf="authService.isAuthenticated()">
+  <p>Show login data component works!</p>
+  <p>Access token:<b>{{ loginData.accessToken }}</b></p>
+  <p>Refresh token:<b>{{ loginData.refreshToken }}</b></p>
+  <p>Roles:<b>{{ loginData.roles }}</b></p>
+</div>
+<app-login *ngIf="!authService.isAuthenticated()"></app-login>

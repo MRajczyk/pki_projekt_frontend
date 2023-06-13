@@ -1,0 +1,42 @@
+<div *ngIf="authService.isAuthenticated()">
+  <div *ngIf="authService.hasAdminPrivileges()">
+    <p>Admin works!</p>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Message</th>
+        <th>Required role</th>
+      </tr>
+      <tr *ngFor="let publicData of data?.data">
+        <td>{{publicData._id }}</td>
+        <td>{{publicData.name}}</td>
+        <td>{{publicData.requiredRole}}</td>
+      </tr>
+    </table>
+      <p>=======================================================================================</p>
+      <table>
+        <tr>
+          <th>Username</th>
+          <th>Id</th>
+          <th>Email</th>
+          <th>Accepted role</th>
+          <th>Accept deadline</th>
+          <th>Accept button</th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td>{{user.name}}</td>
+          <td>{{user._id}}</td>
+          <td>{{ user.email }}</td>
+          <td>{{user.accepted}}</td>
+          <td>{{user.acceptDeadline}}</td>
+          <td>
+            <button *ngIf="!user.accepted" (click)="onVerifyUser(user._id)">Accept!</button>
+          </td>
+        </tr>
+      </table>
+  </div>
+  <div *ngIf="!authService.hasAdminPrivileges()">
+    <p><b>Admin role is required to view this content!</b></p>
+  </div>
+</div>
+<app-login *ngIf="!authService.isAuthenticated()"></app-login>

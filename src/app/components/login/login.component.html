@@ -1,0 +1,20 @@
+<form (ngSubmit)="onSubmit()" [ngClass]="loginFailed ? 'login-failed' : ''">
+  <h3>Logowanie</h3>
+  <div class="user-wrap">
+    <label class="label">
+      Email
+    </label>
+    <input type="text" name="login" required placeholder="Wpisz email" [(ngModel)]="email">
+  </div>
+  <div class="pass-wrap">
+    <label class="label">
+      Password
+    </label>
+    <input type="password" name="password" required placeholder="Wpisz hasło" [(ngModel)]="password">
+    <div class="info-wrapper">
+      <span *ngIf="loginFailed" class="incorrect">Niepoprawne dane logowania</span>
+      <span *ngIf="notAcceptedUser" class="incorrect">Użytkownik nie został zaakceptowany przez administratora.</span>
+    </div>
+  </div>
+  <input type="submit" value="Zaloguj" class="submit" name="login-submit">
+</form>
