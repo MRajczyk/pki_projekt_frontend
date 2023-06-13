@@ -1,8 +1,8 @@
 export interface TableInfo {
-  tables: Table[]
+  columns: ColumnData[]
 }
 
-export interface Table {
+export interface ColumnData {
   table_catalog: string
   table_schema: string
   table_name: string
