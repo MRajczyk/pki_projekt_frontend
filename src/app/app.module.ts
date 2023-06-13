@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {DbService} from "./services/db.service";
+import { ViewPageComponent } from './components/view-page/view-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import {DbService} from "./services/db.service";
     LoginComponent,
     RegisterComponent,
     TopbarComponent,
+    ViewPageComponent,
   ],
   imports: [
     BrowserModule,
