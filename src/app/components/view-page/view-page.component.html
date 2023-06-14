@@ -1,1 +1,16 @@
-<p>view-page works!</p>
+<div *ngIf="authService.isAuthenticated()">
+  <p>View-page component works!</p>
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <th>Id</th>-->
+<!--      <th>Message</th>-->
+<!--      <th>Required role</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let publicData of data?.data">-->
+<!--      <td>{{publicData._id }}</td>-->
+<!--      <td>{{publicData.name}}</td>-->
+<!--      <td>{{publicData.requiredRole}}</td>-->
+<!--    </tr>-->
+<!--  </table>-->
+</div>
+<app-login *ngIf="!authService.isAuthenticated()"></app-login>

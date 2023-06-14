@@ -96,5 +96,6 @@ export class AuthService {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('refresh-token');
     sessionStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
 }
