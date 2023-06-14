@@ -12,7 +12,7 @@ import {TableInfo} from "../../models/tableInfo-reponse-model";
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   constructor(public authService: AuthService, public dbService: DbService) {
     this.tableForm = new FormGroup({
       table: new FormControl(''),
@@ -32,8 +32,10 @@ export class HomeComponent implements OnInit{
   }
 
   sqlQuery: FormControl;
-  executeQuery() {
-    console.log(this.sqlQuery.value)
+  executeQuery(query: string) {
+    this.dbService.sendQuery(query).toPromise().then((value) => {
+      console.log(value);
+    })
   }
 
   public dbName: DbNameResponse | undefined;

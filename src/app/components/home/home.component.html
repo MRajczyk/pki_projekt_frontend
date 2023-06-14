@@ -13,6 +13,6 @@
 
   <label for="name">SQL QUERY: </label>
   <input id="name" type="text" [formControl]="sqlQuery">
-  <button type="button" (click)="executeQuery()">Execute</button>
+  <button type="button" (click)="executeQuery(sqlQuery.value)">Execute</button>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>
