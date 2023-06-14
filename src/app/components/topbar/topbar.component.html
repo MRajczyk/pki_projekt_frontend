@@ -5,6 +5,7 @@
   <span class="example-spacer"></span>
   <span><b>PKI PROJEKT</b></span>
   <span class="example-spacer"></span>
+  <span>USERNAME: {{authService.getUsername()}}</span>
   <div class="rightsideButtons">
     <button class="buttonsRight" *ngIf="!authService.isAuthenticated()">
       <span (click)="onRegisterClick()">Register</span>

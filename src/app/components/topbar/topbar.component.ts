@@ -18,11 +18,6 @@ export class TopbarComponent implements OnInit {
     this.authService.logOut();
     this.router.navigate(['/']);
   }
-
-  onLoggedInfoClick() {
-    this.router.navigate(['/login-info']);
-  }
-
   onMenuClick() {
     this.router.navigate(['/']);
   }
@@ -33,13 +28,5 @@ export class TopbarComponent implements OnInit {
 
   onLoginClick() {
     this.router.navigate(['/login']);
-  }
-
-  onLoggedInClick() {
-    this.router.navigate(['/logged-in']);
-  }
-
-  onAdminClick() {
-    this.router.navigate(['/admin']);
   }
 }

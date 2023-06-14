@@ -22,14 +22,18 @@ export class AuthService {
   constructor(public jwtHelper: JwtHelperService, private http: HttpClient, private router: Router) {}
 
   public isAuthenticated(): boolean {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     return !token ? false : token !== '';
   }
 
   hasAdminPrivileges() {
     // @ts-ignore
-    const reqUserRoles = sessionStorage.getItem('role') !== null ? JSON.parse(sessionStorage.getItem('role')) : ''
+    const reqUserRoles = localStorage.getItem('role') !== null ? JSON.parse(localStorage.getItem('role')) : ''
     return collect(reqUserRoles).contains('admin');
+  }
+
+  getUsername() {
+    return localStorage.getItem('username') ?? '';
   }
 
   logIn(email: string, password: string) {
@@ -40,9 +44,10 @@ export class AuthService {
     const returnVal: Observable<LoginResponseModel> = this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/login', payload);
     returnVal.subscribe({
       next: returnVal => {
-        sessionStorage.setItem('token', returnVal.accessToken);
-        sessionStorage.setItem('refresh-token', returnVal.refreshToken);
-        sessionStorage.setItem('role', JSON.stringify(returnVal.role));
+        localStorage.setItem('token', returnVal.accessToken);
+        localStorage.setItem('refresh-token', returnVal.refreshToken);
+        localStorage.setItem('role', JSON.stringify(returnVal.role));
+        localStorage.setItem('username', JSON.stringify(returnVal.username));
 
         if(!environment.production) {
           console.log('token: ', returnVal.accessToken);
@@ -65,7 +70,7 @@ export class AuthService {
   refreshToken() {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('refresh-token')}` });
+      'Authorization': `Bearer ${localStorage.getItem('refresh-token')}` });
     let options = { headers: headers };
     return this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/refresh', null, options);
   }
@@ -93,9 +98,10 @@ export class AuthService {
   }
 
   logOut(): void {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('refresh-token');
-    sessionStorage.removeItem('role');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
 }
