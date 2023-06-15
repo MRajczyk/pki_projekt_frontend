@@ -22,7 +22,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
     req = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
     }});
 
     return next.handle(req).pipe(
@@ -44,13 +44,13 @@ export class TokenInterceptorService implements HttpInterceptor {
     if(this.authService.isAuthenticated()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${sessionStorage.getItem('refresh-token')}`
+          Authorization: `Bearer ${localStorage.getItem('refresh-token')}`
         }});
       return this.authService.refreshToken().pipe(
         switchMap((returnVal) => {
-          sessionStorage.setItem('token', returnVal.accessToken);
-          sessionStorage.setItem('refresh-token', returnVal.refreshToken);
-          sessionStorage.setItem('role', JSON.stringify(returnVal.role));
+          localStorage.setItem('token', returnVal.accessToken);
+          localStorage.setItem('refresh-token', returnVal.refreshToken);
+          localStorage.setItem('role', JSON.stringify(returnVal.role));
           this.isRefreshing = false;
           return next.handle(request);
         }),
