@@ -71,4 +71,16 @@ export class ViewPageComponent {
   onGoHomeClick() {
     this.router.navigate(['/']);
   }
+
+  addRecord() {
+
+  }
+
+  editRecord() {
+
+  }
+
+  deleteRecord() {
+
+  }
 }
