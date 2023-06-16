@@ -53,7 +53,7 @@ export class ViewPageComponent {
         }
       })
     } else {
-      this.dbService.sendQuery(this.router.getCurrentNavigation()?.extras.state?.['data']).subscribe({
+      this.dbService.sendQuery(this.passedData).subscribe({
         next: (value) => {
           this.queryResult = value;
           console.log(this.queryResult)

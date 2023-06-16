@@ -43,9 +43,7 @@ export class DbService {
   sendQuery(query: string): Observable<QueryResult> {
     const payload = new HttpParams()
       .set('query', query)
-    return this.http.get<QueryResult>(environment.url + this.endpoint + '/query', {
-      params: payload,
-      responseType: 'json'
-    });
+      .set('responseType', 'json')
+    return this.http.post<QueryResult>(environment.url + this.endpoint + '/query', payload);
   }
 }
