@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {DbService} from "../../services/db.service";
-import {DbNameResponse} from "../../models/dbName-model";
+import {DbNameResponse} from "../../models/db-name-model";
 import {TableNamesResponse} from "../../models/table-names-response";
 import {FormControl, FormGroup} from "@angular/forms";
-import {TableInfo} from "../../models/tableInfo-reponse-model";
+import {TableInfo} from "../../models/table-info-reponse-model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -23,12 +23,16 @@ export class HomeComponent implements OnInit {
   }
 
   tableForm: FormGroup;
-
   tableInfo: TableInfo | undefined;
 
   submit() {
+    if(this.tableForm.value.table === undefined || this.tableForm.value.table === ""){
+      console.log('Table is not chosen!');
+      //todo: jakis alercik czy cos
+      return;
+    }
     this.router.navigate(['/view'], { state: {
-        type: 'query',
+        type: 'table_name',
         data: this.tableForm.value.table
       } });
   }
@@ -36,6 +40,11 @@ export class HomeComponent implements OnInit {
   sqlQuery: FormControl;
 
   executeQuery(query: string) {
+    if(query === undefined || query === "") {
+      console.log('Query field is empty!');
+      //todo: jakis alercik czy cos
+      return;
+    }
     this.router.navigate(['/view'], {
       state: {
         type: 'query',

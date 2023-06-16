@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {DbNameResponse} from "../models/dbName-model";
+import {DbNameResponse} from "../models/db-name-model";
 import {environment} from "../../environments/environment";
 import {TableNamesResponse} from "../models/table-names-response";
-import {TableInfo} from "../models/tableInfo-reponse-model";
-import {QueryResult} from "../models/queryReturn-model";
+import {TableInfo} from "../models/table-info-reponse-model";
+import {QueryResult} from "../models/query-return-model";
+import {TableSelect} from "../models/table-select-response-model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +28,14 @@ export class DbService {
     });
   }
 
+  getTable(name: string): Observable<TableSelect> {
+    return this.http.get<TableSelect>(environment.url + this.endpoint + `/table/${name}`, {
+      responseType: 'json'
+    });
+  }
+
   getTableInfo(name: string): Observable<TableInfo> {
-    console.log(environment.url + this.endpoint + `/table/${name}`)
-    return this.http.get<TableInfo>(environment.url + this.endpoint + `/table/${name}`, {
+    return this.http.get<TableInfo>(environment.url + this.endpoint + `/table_info/${name}`, {
       responseType: 'json'
     });
   }

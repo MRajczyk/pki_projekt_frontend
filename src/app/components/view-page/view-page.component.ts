@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
+import {QueryResult} from "../../models/query-return-model";
+import {TableInfo} from "../../models/table-info-reponse-model";
+import {TableSelect} from "../../models/table-select-response-model";
+import {DbService} from "../../services/db.service";
 
 @Component({
   selector: 'app-view-page',
@@ -10,23 +13,59 @@ import {Router} from "@angular/router";
 })
 export class ViewPageComponent {
 
-  constructor(public authService: AuthService, private router: Router) {
-    console.log(this.router.getCurrentNavigation()?.extras.state);
+  public showTableContents: boolean = false;
+  public showQueryResult: boolean = false;
+
+  public tableInfo: TableInfo | undefined;
+  public tableContents: TableSelect | undefined;
+  public queryResult: QueryResult | undefined;
+
+  private passedData: string;
+
+  constructor(public authService: AuthService, private router: Router, private dbService: DbService) {
+    this.passedData = this.router.getCurrentNavigation()?.extras.state?.['data'];
+
+    if(this.router.getCurrentNavigation()?.extras.state?.['type'] === 'table_name') {
+      this.showTableContents = true;
+    } else {
+      this.showQueryResult = true;
+    }
   }
 
-  // submit() {
-  //   console.log(this.tableForm.value.table);
-  //
-  //   this.dbService.getTableInfo(this.tableForm.value.table).toPromise().then((value) => {
-  //     this.router.navigate(['action-selection'], { state: { tableName: this.tableForm.value.table } });
-  //     console.log(value);
-  //   })
-  // }
-  //
-  // executeQuery(query: string) {
-  //   this.dbService.sendQuery(query).toPromise().then((value) => {
-  //     this.router.navigate(['action-selection'], { state: { query: query } });
-  //     console.log(value);
-  //   })
-  // }
+  ngOnInit() {
+    if(this.showTableContents) {
+      this.dbService.getTableInfo(this.passedData).subscribe({
+        next: (value) => {
+          this.tableInfo = value;
+          this.dbService.getTable(this.passedData).subscribe({
+            next: (value) => {
+              this.tableContents = value;
+              console.log(this.tableInfo)
+              console.log(this.tableContents)
+            },
+            error: (err) => {
+              console.log(err)
+            }
+          })
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+    } else {
+      this.dbService.sendQuery(this.router.getCurrentNavigation()?.extras.state?.['data']).subscribe({
+        next: (value) => {
+          this.queryResult = value;
+          console.log(this.queryResult)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+    }
+  }
+
+  onGoHomeClick() {
+    this.router.navigate(['/']);
+  }
 }
