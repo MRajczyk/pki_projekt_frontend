@@ -6,7 +6,7 @@ export interface Result {
   command: string
   rowCount: number
   oid: any
-  rows: Row[]
+  rows: []
   fields: Field[]
   _parsers: any[]
   _types: Types
@@ -14,11 +14,11 @@ export interface Result {
   rowAsArray: boolean
 }
 
-export interface Row {
-  id: number
-  title: string
-  author_id: number
-}
+// export interface Row {
+//   id: number
+//   title: string
+//   author_id: number
+// }
 
 export interface Field {
   name: string

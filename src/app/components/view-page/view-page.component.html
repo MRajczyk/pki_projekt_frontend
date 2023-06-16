@@ -10,18 +10,15 @@
       </table>
   </div>
   <div *ngIf="this.showQueryResult">
-<!--      <table>-->
-<!--        <tr>-->
-<!--          <th>Id</th>-->
-<!--          <th>Message</th>-->
-<!--          <th>Required role</th>-->
-<!--        </tr>-->
-<!--        <tr *ngFor="let publicData of data?.data">-->
-<!--          <td>{{publicData._id }}</td>-->
-<!--          <td>{{publicData.name}}</td>-->
-<!--          <td>{{publicData.requiredRole}}</td>-->
-<!--        </tr>-->
-<!--      </table>-->
+    <p>Action: <b>{{queryResult?.result?.command}}</b>, row count <b>{{queryResult?.result?.rowCount}}</b></p>
+    <table>
+      <tr>
+        <th *ngFor="let field of queryResult?.result?.fields;">{{field.name}}</th>
+      </tr>
+      <tr *ngFor="let row of queryResult?.result?.rows;">
+        <td *ngFor="let field of queryResult?.result?.fields;">{{row[field.name]}}</td>
+      </tr>
+    </table>
   </div>
 
   <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoHomeClick()">
