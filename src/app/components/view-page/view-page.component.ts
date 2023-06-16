@@ -19,8 +19,10 @@ export class ViewPageComponent {
   public tableInfo: TableInfo | undefined;
   public tableContents: TableSelect | undefined;
   public queryResult: QueryResult | undefined;
+  public queryError: string | undefined;
 
-  private passedData: string;
+  public customQuerySuccessful: boolean = true;
+  public passedData: string;
 
   constructor(public authService: AuthService, private router: Router, private dbService: DbService) {
     this.passedData = this.router.getCurrentNavigation()?.extras.state?.['data'];
@@ -56,10 +58,11 @@ export class ViewPageComponent {
       this.dbService.sendQuery(this.passedData).subscribe({
         next: (value) => {
           this.queryResult = value;
-          console.log(this.queryResult)
+          this.customQuerySuccessful = true;
         },
         error: (err) => {
-          console.log(err)
+          this.queryError = err.error.error_message
+          this.customQuerySuccessful = false;
         }
       })
     }

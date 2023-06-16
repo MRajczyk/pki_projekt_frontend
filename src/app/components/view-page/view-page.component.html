@@ -1,15 +1,15 @@
 <div *ngIf="authService.isAuthenticated()">
   <div *ngIf="this.showTableContents">
-      <table>
-        <tr>
-          <th *ngFor="let column of tableInfo?.columns">{{column.column_name}}</th>
-        </tr>
-        <tr *ngFor="let row of tableContents?.rows;">
-          <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
-        </tr>
-      </table>
+    <table>
+      <tr>
+        <th *ngFor="let column of tableInfo?.columns">{{column.column_name}}</th>
+      </tr>
+      <tr *ngFor="let row of tableContents?.rows;">
+        <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
+      </tr>
+    </table>
   </div>
-  <div *ngIf="this.showQueryResult">
+  <div *ngIf="this.showQueryResult && this.customQuerySuccessful">
     <p>Action: <b>{{queryResult?.result?.command}}</b>, row count <b>{{queryResult?.result?.rowCount}}</b></p>
     <table>
       <tr>
@@ -20,7 +20,10 @@
       </tr>
     </table>
   </div>
-
+  <div *ngIf="this.customQuerySuccessful === false">
+    <p>Error while executing query "{{passedData}}"</p>
+    <p><b>Error message: {{queryError}}</b></p>
+  </div>
   <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoHomeClick()">
     MAIN PAGE
   </button>
