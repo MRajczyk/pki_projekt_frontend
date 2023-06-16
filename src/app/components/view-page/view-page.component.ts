@@ -77,7 +77,7 @@ export class ViewPageComponent {
   }
 
   editRecord() {
-
+    this.tableContents?.rows.sort((a, b) => a['title'] > b['title'] ? 1 : -1)
   }
 
   deleteRecord() {
