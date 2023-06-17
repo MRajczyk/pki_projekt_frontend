@@ -76,8 +76,12 @@ export class ViewPageComponent {
 
   }
 
+  sort(keyToSort: string) {
+    this.tableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
+  }
+
   editRecord() {
-    this.tableContents?.rows.sort((a, b) => a['title'] > b['title'] ? 1 : -1)
+
   }
 
   deleteRecord() {

@@ -2,7 +2,7 @@
   <div *ngIf="this.showTableContents">
     <table>
       <tr>
-        <th *ngFor="let column of tableInfo?.columns">{{column.column_name}}</th>
+        <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}} <button class="buttons" (click)="sort(column.column_name)">sort</button></th>
       </tr>
       <tr *ngFor="let row of tableContents?.rows;">
         <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
