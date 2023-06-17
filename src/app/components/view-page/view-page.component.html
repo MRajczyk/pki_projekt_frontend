@@ -2,9 +2,12 @@
   <div *ngIf="this.showTableContents">
     <table>
       <tr>
+        <td *ngFor="let column of tableInfo?.columns;"><input type="text" placeholder="{{column.column_name}}" id="{{column.column_name}}_filter" #xInput (keyup)="filterValues(xInput.value, column.column_name)"></td>
+      </tr>
+      <tr>
         <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}} <button class="buttons" (click)="sort(column.column_name)">sort</button></th>
       </tr>
-      <tr *ngFor="let row of tableContents?.rows;">
+      <tr *ngFor="let row of filteredTableContents?.rows;">
         <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
         <button class="buttons" (click)="editRecord()">
           Edit

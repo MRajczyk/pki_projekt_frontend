@@ -5,6 +5,8 @@ import {QueryResult} from "../../models/query-return-model";
 import {TableInfo} from "../../models/table-info-reponse-model";
 import {TableSelect} from "../../models/table-select-response-model";
 import {DbService} from "../../services/db.service";
+import { Inject }  from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-view-page',
@@ -18,13 +20,14 @@ export class ViewPageComponent {
 
   public tableInfo: TableInfo | undefined;
   public tableContents: TableSelect | undefined;
+  public filteredTableContents: TableSelect | undefined;
   public queryResult: QueryResult | undefined;
   public queryError: string | undefined;
 
   public customQuerySuccessful: boolean = true;
   public passedData: string;
 
-  constructor(public authService: AuthService, private router: Router, private dbService: DbService) {
+  constructor(public authService: AuthService, private router: Router, private dbService: DbService, @Inject(DOCUMENT) document: Document) {
     this.passedData = this.router.getCurrentNavigation()?.extras.state?.['data'];
 
     if(this.router.getCurrentNavigation()?.extras.state?.['type'] === 'table_name') {
@@ -42,8 +45,7 @@ export class ViewPageComponent {
           this.dbService.getTable(this.passedData).subscribe({
             next: (value) => {
               this.tableContents = value;
-              console.log(this.tableInfo)
-              console.log(this.tableContents)
+              this.filteredTableContents = this.tableContents;
             },
             error: (err) => {
               console.log(err)
@@ -76,12 +78,23 @@ export class ViewPageComponent {
 
   }
 
+  editRecord() {
+
+  }
+
   sort(keyToSort: string) {
     this.tableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
   }
 
-  editRecord() {
-
+  filterValues(value: string, columnToFilterName: string) {
+    this.tableInfo?.columns.forEach(column => {
+      if(column.column_name !== columnToFilterName) {
+        const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
+        input.value = "";
+      }
+    })
+    //todo: czeba jednak sklonowac pewnie bo nie zmodyfikuje sie + sprawdzic po czym w ogole filtruje xd
+    //this.filteredTableContents?.rows = this.tableContents?.rows.filter(x => x[columnToFilterName]['name'] === value);
   }
 
   deleteRecord() {
