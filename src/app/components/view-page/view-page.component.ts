@@ -45,7 +45,7 @@ export class ViewPageComponent {
           this.dbService.getTable(this.passedData).subscribe({
             next: (value) => {
               this.tableContents = value;
-              this.filteredTableContents = this.tableContents;
+              this.filteredTableContents = Object.assign({}, this.tableContents);
             },
             error: (err) => {
               console.log(err)
@@ -87,14 +87,26 @@ export class ViewPageComponent {
   }
 
   filterValues(value: string, columnToFilterName: string) {
+    if(value === "" || !value) {
+      this.filteredTableContents = Object.assign({}, this.tableContents);
+      return;
+    }
     this.tableInfo?.columns.forEach(column => {
       if(column.column_name !== columnToFilterName) {
         const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
         input.value = "";
       }
     })
+    if(this.filteredTableContents && this.tableContents) {
+      const result: [] = [];
+      this.tableContents.rows.forEach(row => {
+        if(row[columnToFilterName] == value) {
+          result.push(row)
+        }
+      })
+      this.filteredTableContents.rows = result;
+    }
     //todo: czeba jednak sklonowac pewnie bo nie zmodyfikuje sie + sprawdzic po czym w ogole filtruje xd
-    //this.filteredTableContents?.rows = this.tableContents?.rows.filter(x => x[columnToFilterName]['name'] === value);
   }
 
   deleteRecord() {
