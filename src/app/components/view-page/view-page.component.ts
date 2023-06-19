@@ -86,26 +86,7 @@ export class ViewPageComponent {
     this.filteredTableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
   }
 
-  filterValues(value: string, columnToFilterName: string) {
-    // if(value === "" || !value) {
-    //   this.filteredTableContents = Object.assign({}, this.tableContents);
-    //   return;
-    // }
-    // this.tableInfo?.columns.forEach(column => {
-    //   if(column.column_name !== columnToFilterName) {
-    //     const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
-    //     input.value = "";
-    //   }
-    // })
-    // if(this.filteredTableContents && this.tableContents) {
-    //   const result: [] = [];
-    //   this.tableContents.rows.forEach(row => {
-    //     if((row[columnToFilterName] as string)?.toString().includes(value)) {
-    //       result.push(row)
-    //     }
-    //   })
-    //   this.filteredTableContents.rows = result;
-    // }
+  filterValues() {
     let allFiltersEmptyFlag : boolean = true;
     this.tableInfo?.columns.forEach(column => {
       const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
