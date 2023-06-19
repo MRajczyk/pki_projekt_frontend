@@ -83,30 +83,59 @@ export class ViewPageComponent {
   }
 
   sort(keyToSort: string) {
-    this.tableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
+    this.filteredTableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
   }
 
   filterValues(value: string, columnToFilterName: string) {
-    if(value === "" || !value) {
+    // if(value === "" || !value) {
+    //   this.filteredTableContents = Object.assign({}, this.tableContents);
+    //   return;
+    // }
+    // this.tableInfo?.columns.forEach(column => {
+    //   if(column.column_name !== columnToFilterName) {
+    //     const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
+    //     input.value = "";
+    //   }
+    // })
+    // if(this.filteredTableContents && this.tableContents) {
+    //   const result: [] = [];
+    //   this.tableContents.rows.forEach(row => {
+    //     if((row[columnToFilterName] as string)?.toString().includes(value)) {
+    //       result.push(row)
+    //     }
+    //   })
+    //   this.filteredTableContents.rows = result;
+    // }
+    let allFiltersEmptyFlag : boolean = true;
+    this.tableInfo?.columns.forEach(column => {
+      const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
+      if(input.value !== "") {
+        allFiltersEmptyFlag = false;
+        return;
+      }
+    })
+    if(allFiltersEmptyFlag) {
       this.filteredTableContents = Object.assign({}, this.tableContents);
       return;
     }
+    let flagFiltered: boolean = false;
+    let result: [] = [];
     this.tableInfo?.columns.forEach(column => {
-      if(column.column_name !== columnToFilterName) {
-        const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
-        input.value = "";
+      const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
+      if (this.filteredTableContents && this.tableContents && input.value !== "") {
+        if (flagFiltered) {
+          result = result.filter(row => {
+            return (row[column.column_name] as string)?.toString().includes(input.value);
+          }) as []
+        } else {
+          result = this.tableContents.rows.filter(row => {
+            return (row[column.column_name] as string)?.toString().includes(input.value);
+          }) as []
+          flagFiltered = true;
+        }
       }
     })
-    if(this.filteredTableContents && this.tableContents) {
-      const result: [] = [];
-      this.tableContents.rows.forEach(row => {
-        if(row[columnToFilterName] == value) {
-          result.push(row)
-        }
-      })
-      this.filteredTableContents.rows = result;
-    }
-    //todo: czeba jednak sklonowac pewnie bo nie zmodyfikuje sie + sprawdzic po czym w ogole filtruje xd
+    this.filteredTableContents!.rows = result;
   }
 
   deleteRecord() {
