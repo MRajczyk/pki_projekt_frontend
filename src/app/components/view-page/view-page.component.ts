@@ -98,12 +98,15 @@ export class ViewPageComponent {
     let columns : string = " where "
     let i = 0;
     this.tableInfo?.columns.forEach(column => {
-      if(i !== 0) {
-        columns += "and "
-      }
       // @ts-ignore
-      columns += column.column_name + "='" + row[column.column_name] + "' "
-      ++i;
+      if(row[column.column_name] != "" && row[column.column_name] != null) {
+        if(i !== 0) {
+          columns += "and "
+        }
+        // @ts-ignore
+        columns += column.column_name + "='" + row[column.column_name] + "' "
+        ++i;
+      }
     })
     console.log('DELETE FROM ' + this.passedData + columns)
     this.dbService.sendQuery('DELETE FROM ' + this.passedData + columns).subscribe({
