@@ -37,25 +37,29 @@ export class ViewPageComponent {
     }
   }
 
+  getData() {
+    this.dbService.getTableInfo(this.passedData).subscribe({
+      next: (value) => {
+        this.tableInfo = value;
+        this.dbService.getTable(this.passedData).subscribe({
+          next: (value) => {
+            this.tableContents = value;
+            this.filteredTableContents = Object.assign({}, this.tableContents);
+          },
+          error: (err) => {
+            console.log(err)
+          }
+        })
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
   ngOnInit() {
     if(this.showTableContents) {
-      this.dbService.getTableInfo(this.passedData).subscribe({
-        next: (value) => {
-          this.tableInfo = value;
-          this.dbService.getTable(this.passedData).subscribe({
-            next: (value) => {
-              this.tableContents = value;
-              this.filteredTableContents = Object.assign({}, this.tableContents);
-            },
-            error: (err) => {
-              console.log(err)
-            }
-          })
-        },
-        error: (err) => {
-          console.log(err)
-        }
-      })
+      this.getData()
     } else {
       this.dbService.sendQuery(this.passedData).subscribe({
         next: (value) => {
@@ -70,23 +74,58 @@ export class ViewPageComponent {
     }
   }
 
+  clearErrorParagraph() {
+    const errorParagraph = document.getElementById("error_message") as HTMLInputElement
+    errorParagraph.innerHTML = '';
+  }
+
   onGoHomeClick() {
+    this.clearErrorParagraph();
     this.router.navigate(['/']);
   }
 
-  addRecord() {
-
+  insertRecord() {
+    this.clearErrorParagraph();
   }
 
   editRecord() {
+    this.clearErrorParagraph();
+    this.dbService.sendQuery('')
+  }
 
+  removeRecord(row: []) {
+    this.clearErrorParagraph();
+    let columns : string = " where "
+    let i = 0;
+    this.tableInfo?.columns.forEach(column => {
+      if(i !== 0) {
+        columns += "and "
+      }
+      // @ts-ignore
+      columns += column.column_name + "='" + row[column.column_name] + "' "
+      ++i;
+    })
+    console.log('DELETE FROM ' + this.passedData + columns)
+    this.dbService.sendQuery('DELETE FROM ' + this.passedData + columns).subscribe({
+      next: (val) => {
+        console.log(val)
+        this.getData()
+      },
+      error: (e) => {
+        const errorParagraph = document.getElementById("error_message") as HTMLInputElement
+        errorParagraph.innerHTML = 'Could not delete record, error: <b>' + e.error.error_message + '</b>';
+        console.log(e.error.error_message)
+      }
+    })
   }
 
   sort(keyToSort: string) {
+    this.clearErrorParagraph();
     this.filteredTableContents?.rows.sort((a, b) => a[keyToSort] > b[keyToSort] ? 1 : -1)
   }
 
   filterValues() {
+    this.clearErrorParagraph();
     let allFiltersEmptyFlag : boolean = true;
     this.tableInfo?.columns.forEach(column => {
       const input = document.getElementById(column.column_name + "_filter") as HTMLInputElement
@@ -117,9 +156,5 @@ export class ViewPageComponent {
       }
     })
     this.filteredTableContents!.rows = result;
-  }
-
-  deleteRecord() {
-
   }
 }

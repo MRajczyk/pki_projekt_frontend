@@ -12,7 +12,7 @@
         <button class="buttons" (click)="editRecord()">
           Edit
         </button>
-        <button class="buttons" (click)="deleteRecord()">
+        <button class="buttons" (click)="removeRecord(row)">
           Remove
         </button>
       </tr>
@@ -33,12 +33,15 @@
     <p>Error while executing query "{{passedData}}"</p>
     <p><b>Error message: {{queryError}}</b></p>
   </div>
-  <button class="buttons" (click)="addRecord()">
+  <button class="buttons" (click)="insertRecord()">
     Add record
   </button>
   <br>
   <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoHomeClick()">
     MAIN PAGE
   </button>
+  <div>
+    <p id="error_message"></p>
+  </div>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>
