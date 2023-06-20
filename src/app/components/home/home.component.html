@@ -11,8 +11,8 @@
     <button>Pokaż zawartość tabeli</button>
   </form>
 
-  <label for="name">SQL QUERY: </label>
-  <input id="name" type="text" [formControl]="sqlQuery">
+  <label for="sql-query">SQL QUERY: </label>
+  <input id="sql-query" type="text" [formControl]="sqlQuery">
   <button type="button" (click)="executeQuery(sqlQuery.value)">Execute</button>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>

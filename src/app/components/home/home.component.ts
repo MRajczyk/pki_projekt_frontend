@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.sqlQuery = new FormControl('');
+    this.sqlQuery.setValue(localStorage.getItem('saved-query'));
   }
 
   tableForm: FormGroup;

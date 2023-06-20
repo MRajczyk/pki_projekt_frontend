@@ -69,10 +69,12 @@ export class ViewPageComponent {
         next: (value) => {
           this.queryResult = value;
           this.customQuerySuccessful = true;
+          localStorage.setItem('saved-query', this.passedData);
         },
         error: (err) => {
           this.queryError = err.error.error_message
           this.customQuerySuccessful = false;
+          localStorage.removeItem('saved-query');
         }
       })
     }
