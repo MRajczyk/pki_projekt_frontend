@@ -10,3 +10,8 @@ p {
 button {
   margin-top: 20px;;
 }
+
+td {
+  max-width: 200px;
+  overflow: auto;
+}
