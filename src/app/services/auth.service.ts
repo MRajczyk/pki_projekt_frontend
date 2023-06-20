@@ -13,9 +13,9 @@ export class AuthService {
   public redirectTo: string = '/';
   private endpoint: string = '';
 
-  private hasLoginErrors = new BehaviorSubject<boolean>(false);
+  public hasLoginErrors = new BehaviorSubject<boolean>(false);
   public hasLoginErrors$ = this.hasLoginErrors.asObservable();
-  private hasRegisterErrors = new BehaviorSubject<RegisterResult>({status: false,
+  public hasRegisterErrors = new BehaviorSubject<RegisterResult>({status: false,
   message: ""});
   public hasRegisterErrors$ = this.hasRegisterErrors.asObservable();
   private userNotAccepted = new BehaviorSubject<boolean>(false);

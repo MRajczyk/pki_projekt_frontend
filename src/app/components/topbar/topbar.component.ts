@@ -23,10 +23,12 @@ export class TopbarComponent implements OnInit {
   }
 
   onRegisterClick() {
+    this.authService.hasLoginErrors.next(false)
     this.router.navigate(['/register']);
   }
 
   onLoginClick() {
+    this.authService.hasRegisterErrors.next({status: false, message: ""})
     this.router.navigate(['/login']);
   }
 }
