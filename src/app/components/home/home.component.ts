@@ -28,8 +28,7 @@ export class HomeComponent implements OnInit {
 
   submit() {
     if(this.tableForm.value.table === undefined || this.tableForm.value.table === ""){
-      console.log('Table is not chosen!');
-      //todo: jakis alercik czy cos
+      alert('Table is not chosen!');
       return;
     }
     this.router.navigate(['/view'], { state: {
@@ -42,8 +41,7 @@ export class HomeComponent implements OnInit {
 
   executeQuery(query: string) {
     if(query === undefined || query === "") {
-      console.log('Query field is empty!');
-      //todo: jakis alercik czy cos
+      alert('Query field is empty!');
       return;
     }
     this.router.navigate(['/view'], {

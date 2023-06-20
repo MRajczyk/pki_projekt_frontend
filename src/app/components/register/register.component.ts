@@ -14,11 +14,13 @@ export class RegisterComponent implements OnInit {
   public password: string = '';
   public name: string = '';
   public registerFailed!: boolean;
+  public registerFailMessage!: string;
 
   ngOnInit(): void {
     this.authService.hasRegisterErrors$.subscribe({
       next: (value) => {
-        this.registerFailed = value;
+        this.registerFailed = value.status;
+        this.registerFailMessage = value.message;
       },
     });
   }

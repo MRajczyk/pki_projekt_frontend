@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {LoginResponseModel} from "../models/login-response-model";
 import {collect} from 'collect.js';
+import {RegisterResult} from "../models/register-result-model";
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
 
   private hasLoginErrors = new BehaviorSubject<boolean>(false);
   public hasLoginErrors$ = this.hasLoginErrors.asObservable();
-  private hasRegisterErrors = new BehaviorSubject<boolean>(false);
+  private hasRegisterErrors = new BehaviorSubject<RegisterResult>({status: false,
+  message: ""});
   public hasRegisterErrors$ = this.hasRegisterErrors.asObservable();
   private userNotAccepted = new BehaviorSubject<boolean>(false);
   public userNotAccepted$ = this.userNotAccepted.asObservable();
@@ -88,11 +90,12 @@ export class AuthService {
         if(!environment.production) {
           console.log('Register status: ', returnVal.message);
         }
-        this.hasRegisterErrors.next(false);
+        this.hasRegisterErrors.next({status: false, message: ""});
         this.router.navigate([this.redirectTo]);
       },
       error: err => {
-        this.hasRegisterErrors.next(true);
+        console.log(err)
+        this.hasRegisterErrors.next({status: true, message: err.error.message});
         console.log('Register status: ', err.message);
       }
     });

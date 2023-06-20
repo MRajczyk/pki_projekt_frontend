@@ -18,7 +18,7 @@
     </label>
     <input type="password" name="password" required placeholder="Wpisz hasło" [(ngModel)]="password">
     <div class="info-wrapper">
-      <span *ngIf="registerFailed" class="incorrect">Niepoprawne dane logowania</span>
+      <span *ngIf="registerFailed" class="incorrect">{{registerFailMessage}}</span>
     </div>
   </div>
   <input type="submit" value="Zarejestruj" class="submit" name="login-submit">
