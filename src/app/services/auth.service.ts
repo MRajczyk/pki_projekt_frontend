@@ -90,8 +90,8 @@ export class AuthService {
         if(!environment.production) {
           console.log('Register status: ', returnVal.message);
         }
-        this.hasRegisterErrors.next({status: false, message: ""});
-        this.router.navigate([this.redirectTo]);
+        this.hasRegisterErrors.next({status: false, message: returnVal.message});
+        // this.router.navigate([this.redirectTo]);
       },
       error: err => {
         console.log(err)
