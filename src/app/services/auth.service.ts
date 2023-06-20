@@ -36,9 +36,10 @@ export class AuthService {
     return localStorage.getItem('username') ?? '';
   }
 
-  logIn(email: string, password: string) {
+  logIn(email: string, username: string, password: string) {
     const payload = new HttpParams()
       .set('email', email)
+      .set('username', username)
       .set('password', password);
 
     const returnVal: Observable<LoginResponseModel> = this.http.post<LoginResponseModel>(environment.url + this.endpoint + '/login', payload);

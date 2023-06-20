@@ -14,11 +14,13 @@ import {AuthService} from "./services/auth.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {DbService} from "./services/db.service";
 import { ViewPageComponent } from './components/view-page/view-page.component';
 import { EditAddRecordComponent } from './components/edit-add-record/edit-add-record.component';
+import { RedirectComponent } from './components/redirect-component/redirect.component';
+import { GitAuthComponent } from './components/git-auth-component/git-auth.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,8 @@ import { EditAddRecordComponent } from './components/edit-add-record/edit-add-re
     TopbarComponent,
     ViewPageComponent,
     EditAddRecordComponent,
+    RedirectComponent,
+    GitAuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { EditAddRecordComponent } from './components/edit-add-record/edit-add-re
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    HttpClientXsrfModule,
   ],
   providers: [AuthService, AuthGuardService, DbService,
     {
