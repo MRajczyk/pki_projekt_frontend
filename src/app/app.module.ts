@@ -18,6 +18,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {DbService} from "./services/db.service";
 import { ViewPageComponent } from './components/view-page/view-page.component';
+import { EditAddRecordComponent } from './components/edit-add-record/edit-add-record.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { ViewPageComponent } from './components/view-page/view-page.component';
     RegisterComponent,
     TopbarComponent,
     ViewPageComponent,
+    EditAddRecordComponent,
   ],
   imports: [
     BrowserModule,

@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/view'], { state: {
         type: 'table_name',
         data: this.tableForm.value.table
-      } });
+    }});
   }
 
   sqlQuery: FormControl;

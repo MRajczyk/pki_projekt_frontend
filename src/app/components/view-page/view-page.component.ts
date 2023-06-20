@@ -8,6 +8,10 @@ import {DbService} from "../../services/db.service";
 import { Inject }  from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+type objType = {
+  [key: string]: string
+}
+
 @Component({
   selector: 'app-view-page',
   templateUrl: './view-page.component.html',
@@ -86,24 +90,43 @@ export class ViewPageComponent {
 
   insertRecord() {
     this.clearErrorParagraph();
+    this.router.navigate(['/editor'], { state: {
+        data: this.passedData,
+        mode: 'insert',
+        tableInfo: this.tableInfo,
+        record: null
+    }});
   }
 
-  editRecord() {
+  editRecord(row: objType) {
     this.clearErrorParagraph();
-    this.dbService.sendQuery('')
+    if(this.passedData == "users" && row["role"] == "admin") {
+      const errorParagraph = document.getElementById("error_message") as HTMLInputElement
+      errorParagraph.innerHTML = 'Could not enter editing record, error: <b>' + 'Can\'t edit admin user!</b>';
+      return;
+    }
+    this.router.navigate(['/editor'], { state: {
+        data: this.passedData,
+        mode: 'edit',
+        tableInfo: this.tableInfo,
+        record: row
+    }});
   }
 
-  removeRecord(row: []) {
+  removeRecord(row: objType) {
     this.clearErrorParagraph();
+    if(this.passedData == "users" && row["role"] == "admin") {
+      const errorParagraph = document.getElementById("error_message") as HTMLInputElement
+      errorParagraph.innerHTML = 'Could not delete record, error: <b>' + 'Can\'t delete admin user!</b>';
+      return;
+    }
     let columns : string = " where "
     let i = 0;
     this.tableInfo?.columns.forEach(column => {
-      // @ts-ignore
       if(row[column.column_name] != "" && row[column.column_name] != null) {
         if(i !== 0) {
           columns += "and "
         }
-        // @ts-ignore
         columns += column.column_name + "='" + row[column.column_name] + "' "
         ++i;
       }

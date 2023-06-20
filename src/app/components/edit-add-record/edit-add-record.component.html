@@ -1,0 +1,33 @@
+<div *ngIf="authService.isAuthenticated()">
+  <div *ngIf="this.mode === 'edit'">
+    <table>
+      <tr>
+        <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let column of tableInfo?.columns;"><input id="input_{{column.column_name}}" value="{{record[column.column_name]}}"></td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="this.mode === 'insert'">
+    <table>
+      <tr>
+        <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let column of tableInfo?.columns;"><input id="input_{{column.column_name}}"></td>
+      </tr>
+    </table>
+  </div>
+  <button class="buttons" (click)="applyChanges()">
+    Apply
+  </button>
+  <br>
+  <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoBackToViewPageClick()">
+    GO BACK
+  </button>
+  <div>
+    <p id="result_message"></p>
+  </div>
+</div>
+<app-login *ngIf="!authService.isAuthenticated()"></app-login>

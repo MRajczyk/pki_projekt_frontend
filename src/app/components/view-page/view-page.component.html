@@ -9,7 +9,7 @@
       </tr>
       <tr *ngFor="let row of filteredTableContents?.rows;">
         <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
-        <button class="buttons" (click)="editRecord()">
+        <button class="buttons" (click)="editRecord(row)">
           Edit
         </button>
         <button class="buttons" (click)="removeRecord(row)">
@@ -17,6 +17,10 @@
         </button>
       </tr>
     </table>
+    <button class="buttons" (click)="insertRecord()">
+      Add record
+    </button>
+    <br>
   </div>
   <div *ngIf="this.showQueryResult && this.customQuerySuccessful">
     <p>Action: <b>{{queryResult?.result?.command}}</b>, row count <b>{{queryResult?.result?.rowCount}}</b></p>
@@ -33,10 +37,6 @@
     <p>Error while executing query "{{passedData}}"</p>
     <p><b>Error message: {{queryError}}</b></p>
   </div>
-  <button class="buttons" (click)="insertRecord()">
-    Add record
-  </button>
-  <br>
   <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoHomeClick()">
     MAIN PAGE
   </button>
