@@ -11,7 +11,9 @@ export class TopbarComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router) { }
 
+  public username: string | undefined;
   ngOnInit(): void {
+    this.username = this.authService.getUsername();
   }
 
   onLogoutClick() {
