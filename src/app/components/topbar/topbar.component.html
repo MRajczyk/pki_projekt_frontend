@@ -7,13 +7,13 @@
   <span class="example-spacer"></span>
   <span>USERNAME: {{authService.getUsername()}}</span>
   <div class="rightsideButtons">
-    <button class="buttonsRight" *ngIf="!authService.isAuthenticated()">
+    <button class="buttonsRight btn btn-primary" *ngIf="!authService.isAuthenticated()">
       <span (click)="onRegisterClick()">Register</span>
     </button>
-    <button class="buttonsRight" *ngIf="!authService.isAuthenticated()">
+    <button class="buttonsRight btn btn-primary" *ngIf="!authService.isAuthenticated()">
       <span (click)="onLoginClick()">Login</span>
     </button>
-    <button class="buttonsRight" *ngIf="authService.isAuthenticated()">
+    <button class="buttonsRight btn btn-primary" *ngIf="authService.isAuthenticated()">
       <span (click)="onLogoutClick()">Logout</span>
     </button>
   </div>
