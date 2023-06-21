@@ -1,18 +1,18 @@
 <form (ngSubmit)="onSubmit()" [ngClass]="registerFailed ? 'login-failed' : ''">
   <h1 style="margin-top: 10px; font-size: 2rem">Rejestracja</h1>
-  <div class="user-wrap form-control">
+  <div class="pass-wrap form-control" style="max-width: 400px; margin: auto">
     <label class="label" for="login">
       Email&nbsp;
     </label>
     <input type="text" name="login" id="login" required placeholder="Wpisz email" [(ngModel)]="email">
   </div>
-  <div class="pass-wrap form-control">
+  <div class="pass-wrap form-control" style="max-width: 400px; margin: auto">
     <label class="label" for="password">
       Nick&nbsp;
     </label>
     <input type="text" name="name" id="name" required placeholder="Wpisz hasło" class="" [(ngModel)]="name">
   </div>
-  <div class="pass-wrap form-control">
+  <div class="pass-wrap form-control" style="max-width: 400px; margin: auto">
     <label class="label" for="password">
       Hasło&nbsp;
     </label>

@@ -1,16 +1,16 @@
 <form (ngSubmit)="onSubmit()" [ngClass]="loginFailed ? 'login-failed' : ''">
   <h1 style="margin-top: 10px; font-size: 2rem">Logowanie</h1>
-  <div class="user-wrap form-control">
+  <div class="user-wrap form-control"style="max-width: 400px; margin: auto">
     <label class="label" for="login">
       Email&nbsp;
     </label>
     <input type="text" name="login" id="login" required placeholder="Wpisz email" [(ngModel)]="email">
   </div>
-  <div class="pass-wrap form-control">
+  <div class="pass-wrap form-control" style="max-width: 400px; margin: auto">
     <label class="label" for="password">
       Hasło&nbsp;
     </label>
-    <input type="password" name="password" id="password" required placeholder="Wpisz hasło" class="" [(ngModel)]="password">
+    <input type="password" name="password" id="password" required placeholder="Wpisz hasło" [(ngModel)]="password">
   </div>
   <div class="info-wrapper" style="margin: 10px">
     <span *ngIf="loginFailed" class="incorrect" style="color: red">Niepoprawne dane logowania</span>
