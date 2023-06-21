@@ -11,8 +11,8 @@
     <button class="submit btn btn-primary">Pokaż zawartość tabeli</button>
   </form>
 
-  <label for="sql-query" style="font-size: 2rem; margin-right: 15px">SQL QUERY: </label>
+  <label for="sql-query" style="font-size: 2rem; margin-right: 15px">Zaytanie SQL: </label>
   <input id="sql-query" type="text" [formControl]="sqlQuery" style="margin-right: 15px; max-width: 400px; display: inline-block" class="form-control">
-  <button type="button" (click)="executeQuery(sqlQuery.value)" class="submit btn btn-primary">Execute</button>
+  <button type="button" (click)="executeQuery(sqlQuery.value)" class="submit btn btn-primary">Wykonaj</button>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>

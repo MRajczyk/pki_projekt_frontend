@@ -1,6 +1,6 @@
 <div *ngIf="authService.isAuthenticated()">
   <div *ngIf="this.mode === 'edit'">
-    <table>
+    <table class="table table-primary table-bordered border-primary">
       <tr>
         <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}}</th>
       </tr>
@@ -10,7 +10,7 @@
     </table>
   </div>
   <div *ngIf="this.mode === 'insert'">
-    <table>
+    <table class="table table-primary table-bordered border-primary">
       <tr>
         <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}}</th>
       </tr>
@@ -19,15 +19,15 @@
       </tr>
     </table>
   </div>
-  <button class="buttons" (click)="applyChanges()">
-    Apply
+  <button class="buttons btn btn-primary" style="margin: 5px" (click)="applyChanges()">
+    Zastosuj
   </button>
   <br>
-  <button class="buttons" aria-label="Example icon-button with menu icon" (click)="onGoBackToViewPageClick()">
-    GO BACK
+  <button class="buttons btn btn-primary" style="margin: 5px" aria-label="Example icon-button with menu icon" (click)="onGoBackToViewPageClick()">
+    Powrót
   </button>
   <div>
-    <p id="result_message"></p>
+    <p style="font-size: 1.5rem" id="result_message"></p>
   </div>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>

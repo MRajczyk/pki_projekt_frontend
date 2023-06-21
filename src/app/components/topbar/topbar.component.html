@@ -5,16 +5,16 @@
   <span class="example-spacer"></span>
   <span><b>PKI PROJEKT</b></span>
   <span class="example-spacer"></span>
-  <span *ngIf="authService.getUsername().length > 0">USERNAME: {{authService.getUsername()}}</span>
+  <span *ngIf="authService.getUsername().length > 0">Nazwa użytkownika: {{authService.getUsername()}}</span>
   <div class="rightsideButtons">
     <button class="buttonsRight btn btn-primary" *ngIf="!authService.isAuthenticated()">
-      <span (click)="onRegisterClick()">Register</span>
+      <span (click)="onRegisterClick()">Zarejestruj</span>
     </button>
     <button class="buttonsRight btn btn-primary" *ngIf="!authService.isAuthenticated()">
-      <span (click)="onLoginClick()">Login</span>
+      <span (click)="onLoginClick()">Zaloguj</span>
     </button>
     <button class="buttonsRight btn btn-primary" *ngIf="authService.isAuthenticated()">
-      <span (click)="onLogoutClick()">Logout</span>
+      <span (click)="onLogoutClick()">Wyloguj</span>
     </button>
   </div>
 </mat-toolbar>

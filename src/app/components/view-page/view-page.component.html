@@ -9,27 +9,27 @@
         <td></td>
       </tr>
       <tr>
-        <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}} <button class="buttons btn btn-primary" (click)="sort(column.column_name)">sort</button></th>
+        <th *ngFor="let column of tableInfo?.columns;">{{column.column_name}} <button class="buttons btn btn-primary" (click)="sort(column.column_name)">sortuj</button></th>
       </tr>
       <tr *ngFor="let row of filteredTableContents?.rows;">
         <td *ngFor="let column of tableInfo?.columns;">{{row[column.column_name]}}</td>
         <td>
           <button class="buttons btn btn-primary" style="margin: 5px;" (click)="editRecord(row)">
-            Edit
+            Edytuj
           </button>
           <button class="buttons btn btn-primary" style="margin: 5px;" (click)="removeRecord(row)">
-            Remove
+            Usuń
           </button>
         </td>
       </tr>
     </table>
     <button class="buttons btn btn-primary" (click)="insertRecord()">
-      Add record
+      Dodaj rekord
     </button>
     <br>
   </div>
   <div *ngIf="this.showQueryResult && this.customQuerySuccessful">
-    <p>Action: <b>{{queryResult?.result?.command}}</b>, row count <b>{{queryResult?.result?.rowCount}}</b></p>
+    <p>Akcja: <b>{{queryResult?.result?.command}}</b>, ilość wierszy <b>{{queryResult?.result?.rowCount}}</b></p>
     <table class="table table-primary table-bordered border-primary">
       <tr>
         <th *ngFor="let field of queryResult?.result?.fields;">{{field.name}}</th>
@@ -40,11 +40,11 @@
     </table>
   </div>
   <div *ngIf="this.customQuerySuccessful === false">
-    <p>Error while executing query "{{passedData}}"</p>
-    <p><b>Error message: {{queryError}}</b></p>
+    <p>Wystąpił błąd podczas wykonywania zapytania: "{{passedData}}"</p>
+    <p><b>Informacja o błędzie: {{queryError}}</b></p>
   </div>
   <button class="buttons btn btn-primary" aria-label="Example icon-button with menu icon" (click)="onGoHomeClick()">
-    GO TO MAIN PAGE
+    Wróć na stronę główną
   </button>
 </div>
 <app-login *ngIf="!authService.isAuthenticated()"></app-login>
